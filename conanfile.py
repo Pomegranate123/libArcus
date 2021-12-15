@@ -7,7 +7,7 @@ from conan.tools.files.packager import AutoPackager
 
 class ArcusConan(ConanFile):
     name = "arcus"
-    version = "4.13.0-alpha+001"
+    version = "5.0.0"
     license = "LGPL-3.0"
     author = "Ultimaker B.V."
     url = "https://github.com/Ultimaker/libArcus"
@@ -19,6 +19,8 @@ class ArcusConan(ConanFile):
     default_user = "ultimaker"
     default_channel = "testing"
     exports = "LICENSE*"
+    python_requires = ["UltimakerBase/0.1@ultimaker/testing"]
+    python_requires_extend = "UltimakerBase.UltimakerBase"
     options = {
         "build_python": [True, False],
         "shared": [True, False],
