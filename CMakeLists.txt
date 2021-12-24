@@ -37,8 +37,8 @@ endif()
 
 use_threads(Arcus)
 
-find_package(Protobuf 3.17.1 REQUIRED)
-target_link_libraries(Arcus PRIVATE protobuf::libprotobuf)
+find_package(protobuf 3.17.1 REQUIRED)
+target_link_libraries(Arcus PRIVATE protobuf::protobuf)
 
 set_project_standards(Arcus)
 set_project_warnings(Arcus)
