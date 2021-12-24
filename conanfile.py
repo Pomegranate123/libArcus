@@ -5,6 +5,7 @@ from conan.tools.cmake import CMakeToolchain, CMakeDeps, CMake
 from conan.tools.layout import cmake_layout
 from conan.tools.files.packager import AutoPackager
 
+
 class ArcusConan(ConanFile):
     name = "arcus"
     version = "5.0.0"
@@ -43,7 +44,7 @@ class ArcusConan(ConanFile):
 
     def requirements(self):
         if self.options.build_python:
-            self.requires("Python/3.8.10@python/stable")
+            self.requires("Python/3.10.0@python/stable")
             self.requires("sip/4.19.25@riverbankcomputing/stable")
         self.requires("protobuf/3.17.1")
 
@@ -113,7 +114,8 @@ class ArcusConan(ConanFile):
         elif self.settings.os == "Windows":
             self.cpp_info.system_libs.append("ws2_32")
         if self.in_local_cache:
-            self.runenv_info.prepend_path("PYTHONPATH", os.path.join(self.package_folder, "site-packages"))
+            self.runenv_info.prepend_path("PYTHONPATH", os.path.join(
+                self.package_folder, "site-packages"))
         else:
             self.runenv_info.prepend_path("PYTHONPATH", self.build_folder)
 

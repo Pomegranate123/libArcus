@@ -1,5 +1,5 @@
 project(Arcus)
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.16)
 
 # Basic projects options
 option(BUILD_PYTHON "Build Python module" ON)
@@ -87,7 +87,7 @@ if(BUILD_PYTHON)
     target_link_libraries(python_module_Arcus
             PRIVATE
                 sip::sip
-                protobuf::libprotobuf
+                protobuf::protobuf
                 Arcus
             )
     target_include_directories(python_module_Arcus
