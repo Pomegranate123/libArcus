@@ -128,8 +128,8 @@ namespace Arcus
 
         static const int keep_alive_rate = 500; //Number of milliseconds between sending keepalive packets
 
-        // This value determines when protobuf should warn about very large messages.
-        static const int message_size_warning = 400 * 1048576;
+//        // This value determines when protobuf should warn about very large messages.
+//        static const int message_size_warning = 400 * 1048576;
 
         // This value determines when protobuf should error out because the message is too large.
         // Due to the way Protobuf is implemented, messages large than 512MiB will cause issues.
@@ -362,11 +362,18 @@ namespace Arcus
             return;
         }
 
-        uint32_t message_size = message->ByteSize();
-        if(platform_socket.writeUInt32(message_size) == -1)
+//        uint32_t message_size = message->ByteSize();
+//        if(platform_socket.writeUInt32(message_size) == -1)
+        auto message_size = message->ByteSizeLong();
+        if (message_size > UINT_MAX) {
+            error(ErrorCode::SendFailedError, "Message size is too large to send");
+            return;
+        }
+
+        if (platform_socket.writeUInt32(static_cast<uint32_t>(message_size)) == -1)
         {
             error(ErrorCode::SendFailedError, "Could not send message size");
-            return;
+//            return;
         }
 
         uint32_t type_id = message_types.getMessageTypeId(message);
